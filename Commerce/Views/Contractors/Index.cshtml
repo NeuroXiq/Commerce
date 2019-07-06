@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Contractors";
+}
+
+@model ContractorsIndexViewModel
+
+<h1>List of contractors</h1>
+
+<div class="container">
+    <div class="row border">
+        <h5>Search Options</h5>
+        <form asp-action="Index" method="post">
+            <div class="row">
+                <div class="col ">
+                    <input type="text" asp-for="SearchString" class="form-control"/>
+                </div>
+                <div class="col">
+                    <select asp-for="SearchType" asp-items="Html.GetEnumSelectList<ContractorsIndexViewModel.SearchStringType>()" class="form-control">
+                        <option selected="selected" value="">Look at..</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.Contractors[0].ID)</th>
+                    <th>@Html.DisplayNameFor(m => m.Contractors[0].FirstName)</th>
+                    <th>@Html.DisplayNameFor(m => m.Contractors[0].LastName)</th>
+                    <th>@Html.DisplayNameFor(m => m.Contractors[0].Email)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model.Contractors)
+                {
+                    <tr>
+                        <td>@c.ID</td>
+                        <td>@c.FirstName</td>
+                        <td>@c.LastName</td>
+                        <td>@c.Email</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@c.ID">Edit</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

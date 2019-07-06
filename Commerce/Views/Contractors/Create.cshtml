@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewData["Title"] = "Create Contractor";
+}
+
+@model Contractor
+
+<h1>Create</h1>
+
+<h4>Contractor</h4>
+<div name="status" class="col-md-5">
+    @if (ViewData["Success"] != null)
+    {
+
+        <label class="text-success">
+            Success: @ViewData["Success"]
+        </label>
+    }
+    else if (ViewData["Error"] != null)
+    {
+        <label class="text-danger">
+            Error:
+        </label>
+        if (ViewData["ErrorMessages"] != null)
+        {
+            @foreach (string s in (string[])ViewData["ErrorMessages"])
+            {
+<p>
+    <label class="text-danger">
+        @s
+    </label>
+</p>
+            }
+        }
+    }
+</div>
+
+<hr />
+<div class="row">
+
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <!--<span asp-validation-for="Email" class="text-danger"></span>-->
+            </div>
+            <div class="form-group">
+                <label asp-for="Street"></label>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaxNumber"></label>
+                <input asp-for="TaxNumber" class="form-control" />
+                <span asp-validation-for="TaxNumber" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NBRN"></label>
+                <input asp-for="NBRN" class="form-control" />
+                <span asp-validation-for="NBRN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BankAccountNumber"></label>
+                <input asp-for="BankAccountNumber" class="form-control" />
+                <span asp-validation-for="BankAccountNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@{
+ /*   @section Scripts
+{
+        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    }*/
+}

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Current Issue Types";
+}
+
+@model  IssueTypeIndexViewModel
+
+<div class="text-center">
+    <h1>Issue types</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.NameIdValues)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

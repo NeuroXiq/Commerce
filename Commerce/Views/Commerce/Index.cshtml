@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model HomeIndexViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to E-Commerce Home Page</h1>
+    
+    <div class="row">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Show details</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (HomeIndexViewModel.TableInfo info in Model.TablesInfo)
+                {
+                    <tr>
+                        <td>@info.Name</td>
+                        <td>@info.Count</td>
+                        <td>
+                            @{
+                                if (info.Count > 0)
+                                {
+                                    <a asp-controller="@info.ControllerName" asp-action="Index" class="btn btn-success">More</a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="@info.ControllerName" asp-action="Index" class="btn btn-danger">More</a>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
