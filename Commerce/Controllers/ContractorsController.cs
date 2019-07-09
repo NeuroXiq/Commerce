@@ -26,20 +26,35 @@ namespace Commerce.Controllers
         //    return Index(1, 11);
         //}
 
-        
-        public IActionResult Index(int start=1, int end=11)
+        [ActionName("RangeNavigation")]
+        public IActionResult Index(int rangeIndex, int rangeCount)
         {
-            if (start > end) return BadRequest();
-            if (start - end > 100) end = (start + 100);
+            if (!ContractorsIndexViewModel.RowsCountValues.Contains(rangeCount))
+            {
+                rangeCount = ContractorsIndexViewModel.RowsCountValues[0];
+            }
 
-            var query = from c in dbContext.Contractors where c.ID >= start && c.ID <= end select c;
+            bool rightNavButtonEnabled;
 
-            var contractors = query.ToList();
-            ContractorsIndexViewModel viewModel = new ContractorsIndexViewModel();
+            List<Contractor> contractors = GetContractorsRange(rangeIndex, rangeCount, out rightNavButtonEnabled);
 
-            viewModel.Contractors = contractors;
+            ContractorsIndexViewModel vm = new ContractorsIndexViewModel();
+            vm.ContractorsList = contractors;
+            vm.NavButton_CurrentValue = rangeIndex;
+            vm.NavButton_LeftEnable = true;
+            vm.NavButton_RightEnable = rightNavButtonEnabled;
+            vm.RowsCountToShow = rangeCount;
+           
 
-            return View(viewModel);
+
+
+            return View("Index",vm);
+        }
+
+        [ActionName("Index")]
+        public IActionResult Index()
+        {
+            return View(GetInitialVM());
         }
 
         [HttpGet]
@@ -61,7 +76,7 @@ namespace Commerce.Controllers
             }
             else
             {
-                ViewData["Error"] = "Error occur during creating new contractor";
+                ViewData["Error"] = "An error occur during creating new contractor";
 
                 string[] errorMessages = ModelState.Values.SelectMany(v => v.Errors).Select(v => v.ErrorMessage).ToArray();
 
@@ -78,7 +93,43 @@ namespace Commerce.Controllers
             
             return View();
         }
-        
+
+
+        public ContractorsIndexViewModel GetInitialVM()
+        {
+            ContractorsIndexViewModel vm = new ContractorsIndexViewModel();
+            int rowsCount = ContractorsIndexViewModel.RowsCountValues[0];
+            bool nextRangeButtonEnable = false;
+            bool prevRangebuttonEnable = true;
+            List<Contractor> contractors = GetContractorsRange(1, rowsCount, out nextRangeButtonEnable);
+
+            vm.NavButton_CurrentValue = 1;
+            vm.NavButton_LeftEnable = prevRangebuttonEnable;
+            vm.NavButton_RightEnable = nextRangeButtonEnable;
+            vm.ContractorsList = contractors;
+
+            return vm;
+        }
+
+
+        public List<Contractor> GetContractorsRange(int rangeNo, int rangeLength, out bool moreExists)
+        {
+            int skipCount = rangeNo * rangeLength;
+            int ctorTotalCount = dbContext.Contractors.Count();
+
+            List<Contractor> contractors = dbContext.Contractors
+                .Skip(skipCount)
+                .Take(rangeLength)
+                .ToList();
+
+            if (ctorTotalCount > skipCount + rangeLength)
+                moreExists = true;
+            else moreExists = false;
+
+            if (contractors == null) contractors = new List<Contractor>();
+
+            return contractors;
+        }
 
     }
 }

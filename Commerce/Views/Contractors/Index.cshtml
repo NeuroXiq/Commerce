@@ -1,6 +1,17 @@
 ﻿
 @{
     ViewData["Title"] = "Contractors";
+
+    Dictionary<string, string> leftNavButtonParams = new Dictionary<string, string>()
+{
+        {"rangeIndex" , (Model.NavButton_CurrentValue - 1).ToString() },
+        {"rangeCount" ,  Model.RowsCountToShow.ToString() }
+    };
+    Dictionary<string, string> rightNavButtonParams = new Dictionary<string, string>()
+{
+        {"rangeIndex" , (Model.NavButton_CurrentValue + 1).ToString() },
+        {"rangeCount" ,  Model.RowsCountToShow.ToString()}
+    };
 }
 
 @model ContractorsIndexViewModel
@@ -8,48 +19,87 @@
 <h1>List of contractors</h1>
 
 <div class="container">
-    <div class="row border">
-        <h5>Search Options</h5>
-        <form asp-action="Index" method="post">
-            <div class="row">
-                <div class="col ">
-                    <input type="text" asp-for="SearchString" class="form-control"/>
+    <div class="row">
+        <div class="col">
+            <label>Display options</label>
+            <form asp-action="Index" method="post">
+                <div class="row form-group">
+                    <div class="col ">
+                        <input type="text" asp-for="SearchString" class="form-control" />
+                    </div>
+                    <div class="col">
+                        <select asp-for="SearchType" asp-items="Html.GetEnumSelectList<ContractorsIndexViewModel.SearchStringType>()" class="form-control">
+                            <option selected="selected" value="">Search by...</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col">
-                    <select asp-for="SearchType" asp-items="Html.GetEnumSelectList<ContractorsIndexViewModel.SearchStringType>()" class="form-control">
-                        <option selected="selected" value="">Look at..</option>
-                    </select>
+                <div class="row form-group">
+                    <div class="col-8"></div>
+                    <div class="col-4">
+                        <input type="submit" value="Update View" class="form-control" />
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <div class="row">
-        <table class="table table-bordered">
-            <thead class="thead-light">
-                <tr>
-                    <th>@Html.DisplayNameFor(m => m.Contractors[0].ID)</th>
-                    <th>@Html.DisplayNameFor(m => m.Contractors[0].FirstName)</th>
-                    <th>@Html.DisplayNameFor(m => m.Contractors[0].LastName)</th>
-                    <th>@Html.DisplayNameFor(m => m.Contractors[0].Email)</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var c in Model.Contractors)
-                {
+        <div class="col">
+            <table class="table table-bordered">
+                <thead class="thead-light">
                     <tr>
-                        <td>@c.ID</td>
-                        <td>@c.FirstName</td>
-                        <td>@c.LastName</td>
-                        <td>@c.Email</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@c.ID">Edit</a>
-
-                        </td>
+                        <th>@Html.DisplayNameFor(m => m.ContractorsList[0].ID)</th>
+                        <th>@Html.DisplayNameFor(m => m.ContractorsList[0].FirstName)</th>
+                        <th>@Html.DisplayNameFor(m => m.ContractorsList[0].LastName)</th>
+                        <th>@Html.DisplayNameFor(m => m.ContractorsList[0].Email)</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-
+                </thead>
+                <tbody>
+                    @foreach (var c in Model.ContractorsList)
+                    {
+                        <tr>
+                            <td>@c.ID</td>
+                            <td>@c.FirstName</td>
+                            <td>@c.LastName</td>
+                            <td>@c.Email</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@c.ID">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="row"></div>
+            <!--emtpy column space to align cursor buttons to the right-->
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col">
+                    <!--Left arrow-->
+                    <a class="btn btn-secondary
+                       @(Model.NavButton_LeftEnable ? "" : "disabled")"
+                       asp-action="RangeNavigation"
+                       asp-all-route-data="leftNavButtonParams">
+                        &#8826;
+                    </a>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" disabled>@Model.NavButton_CurrentValue</button>
+                </div>
+                <!--Right arrow-->
+                <div class="col">
+                    <a class="btn btn-secondary
+                       @(Model.NavButton_RightEnable ? "" : "disabled")"
+                       asp-action="RangeNavigation"
+                       asp-all-route-data="rightNavButtonParams">
+                        &#8827;
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
