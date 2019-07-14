@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Commerce.Models;
 using Commerce.Data;
 using Commerce.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Commerce.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         CommerceDbContext commerceDbContext;

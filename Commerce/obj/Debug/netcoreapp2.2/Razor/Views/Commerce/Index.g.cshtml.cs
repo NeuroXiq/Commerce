@@ -32,8 +32,13 @@ using System.Collections.Generic;
 
 #line default
 #line hidden
+#line 5 "D:\csprojects\Commerce\Commerce\Views\_ViewImports.cshtml"
+using Commerce.TestPages;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"04fcd53b28852778180d59524d2ab4da662e092e", @"/Views/Commerce/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"65f128e21ea83a3782f6da2bcdf1c10384128a58", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7ffb55ae5bdf6af646f6449928cb7778af14feca", @"/Views/_ViewImports.cshtml")]
     public class Views_Commerce_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<HomeIndexViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Index", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -128,7 +133,7 @@ using System.Collections.Generic;
             WriteLiteral("                                    ");
             EndContext();
             BeginContext(912, 92, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "04fcd53b28852778180d59524d2ab4da662e092e6491", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "04fcd53b28852778180d59524d2ab4da662e092e6618", async() => {
                 BeginContext(996, 4, true);
                 WriteLiteral("More");
                 EndContext();
@@ -170,7 +175,7 @@ using System.Collections.Generic;
             WriteLiteral("                                    ");
             EndContext();
             BeginContext(1150, 91, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "04fcd53b28852778180d59524d2ab4da662e092e8934", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "04fcd53b28852778180d59524d2ab4da662e092e9061", async() => {
                 BeginContext(1233, 4, true);
                 WriteLiteral("More");
                 EndContext();
